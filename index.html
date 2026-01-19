@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Trendy Magazine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+<!-- PageFlip CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/css/page-flip.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+}
+
+header span {
+    color: #e53935;
+}
+
+/* NAV */
+nav {
+    background: #333;
+    padding: 15px;
+    border-bottom: 5px solid #e53935;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+nav a:hover {
+    color: #e53935;
+}
+
+/* CONTENT */
+.container {
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.magazines {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.card {
+    text-align: center;
+    animation: fadeUp 1s ease;
+}
+
+.card img {
+    width: 260px;
+    border-radius: 6px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    transition: transform 0.4s;
+}
+
+.card img:hover {
+    transform: scale(1.05);
+}
+
+.card h3 {
+    margin: 20px 0;
+}
+
+.btn {
+    padding: 12px 30px;
+    background: #e53935;
+    color: white;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    background: #c62828;
+}
+
+/* EDITIONS BAR */
+.editions {
+    background: #333;
+    padding: 30px;
+    text-align: center;
+    border-top: 5px solid #e53935;
+    border-bottom: 5px solid #e53935;
+}
+
+.editions span {
+    background: #e53935;
+    color: white;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#flipbook {
+    width: 350px;
+    height: 500px;
+}
+
+/* CLOSE */
+.close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media(max-width: 768px) {
+    header h1 { font-size: 34px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1><span>TRENDY</span> Magazine</h1>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Contact: +260973911118</a></li>
+        <li><a href="#">Email: bausarakasongo@gmail.com</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="magazines">
+
+        <div class="card">
+            <img src="image1.jpg" alt="2025 Edition">
+            <h3>December Edition 2025</h3>
+            <button class="btn" onclick="openBook('2025')">View Magazine</button>
+        </div>
+
+        <div class="card">
+            <img src="image2.jpg" alt="2026 Edition">
+            <h3>February Edition 2026</h3>
+            <button class="btn" onclick="openBook('2026')">View Magazine</button>
+        </div>
+
+    </div>
+</div>
+
+<div class="editions">
+    <span>Editions</span>
+</div>
+
+<!-- FLIPBOOK MODAL -->
+<div class="modal" id="modal">
+    <span class="close" onclick="closeBook()">×</span>
+    <div id="flipbook"></div>
+</div>
+
+<!-- PageFlip JS -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+
+<script>
+let pageFlip;
+
+function openBook(year) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("flipbook").innerHTML = "";
+
+    pageFlip = new St.PageFlip(
+        document.getElementById("flipbook"),
+        {
+            width: 350,
+            height: 500,
+            size: "stretch",
+            showCover: true,
+            mobileScrollSupport: true
+        }
+    );
+
+    // Load 20 pages automatically
+    const pages = [];
+    for (let i = 1; i <= 20; i++) {
+        pages.push(`images/${year}/page${i}.jpg`);
+    }
+
+    pageFlip.loadFromImages(pages);
+}
+
+function closeBook() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("flipbook").innerHTML = "";
+}
+</script>
+
+</body>
+</html>
